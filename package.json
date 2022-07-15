@@ -1,6 +1,6 @@
 {
   "name": "publish-android",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Github Action to upload a Android release (.apk or .aab) to the Google Play Store",
   "scripts": {
     "build": "npm run clean && tsc --project tsconfig.json",
