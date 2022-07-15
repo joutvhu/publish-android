@@ -1,6 +1,6 @@
 # Publish Android
 
-This GitHub Action to upload a Android release (.apk or .aab) to the Google Play Store
+This GitHub Action to upload an Android release (.apk or .aab) to the Google Play Store.
 
 ## Usage
 
