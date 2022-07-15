@@ -26,7 +26,7 @@ import {getInputs, PublishInputs, setOutputs} from './io-helper';
     } finally {
         if (inputs?.createdGoogleCredentialsFile) {
             core.debug('Cleaning up service account json file');
-            unlinkSync('./serviceAccountJson.json');
+            unlinkSync('./.google-service-account.json');
         }
     }
 })();
