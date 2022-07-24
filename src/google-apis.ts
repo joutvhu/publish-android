@@ -7,7 +7,7 @@ import {PublishInputs} from './io-helper';
 const androidPublisher: androidpublisher_v3.Androidpublisher = androidpublisher('v3');
 
 export async function uploadToPlayStore(inputs: PublishInputs): Promise<string[] | undefined> {
-    core.exportVariable('GOOGLE_APPLICATION_CREDENTIALS', inputs.googleApplicationCredentials);
+    core.debug('Executing uploadToPlayStore');
     // Check the 'track' for 'internalsharing', if so switch to a non-track api
     if (inputs.track === 'internalsharing') {
         core.debug('Track is Internal app sharing, switch to special upload api');

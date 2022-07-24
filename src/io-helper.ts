@@ -51,15 +51,17 @@ export function getFloatInput(name: string, options?: InputOptions): number | un
 }
 
 export async function getInputs(): Promise<PublishInputs> {
+    core.debug('Getting the inputs.');
     const result: PublishInputs | any = {};
 
     const serviceAccountJson = getInput(Inputs.ServiceAccountJson, {required: true});
     if (serviceAccountJson) {
         if (/^([ \n\t]*){.+}([ \n\t]*)$/s.test(serviceAccountJson)) {
-            const serviceAccountFile = './.google-service-account.json';
+            const serviceAccountFile = './service-account-file.json';
             writeFileSync(serviceAccountFile, serviceAccountJson, {
                 encoding: 'utf8'
             });
+            core.debug(`Created file "${serviceAccountFile}"`);
             result.googleApplicationCredentials = serviceAccountFile;
             result.createdGoogleCredentialsFile = true;
         } else {
@@ -68,7 +70,7 @@ export async function getInputs(): Promise<PublishInputs> {
         }
     } else {
         console.log('No service account json key provided!');
-        throw new Error('You must provide one of \'serviceAccountJson\' or \'serviceAccountJsonPlainText\' to use this action');
+        throw new Error('You must provide one of \'serviceAccountJson\' to use this action');
     }
 
     result.packageName = getInput(Inputs.PackageName, {required: true});

@@ -62538,7 +62538,7 @@ const path_1 = __importDefault(__nccwpck_require__(1017));
 const androidPublisher = (0, androidpublisher_1.androidpublisher)('v3');
 function uploadToPlayStore(inputs) {
     return __awaiter(this, void 0, void 0, function* () {
-        core.exportVariable('GOOGLE_APPLICATION_CREDENTIALS', inputs.googleApplicationCredentials);
+        core.debug('Executing uploadToPlayStore');
         if (inputs.track === 'internalsharing') {
             core.debug('Track is Internal app sharing, switch to special upload api');
             let downloadUrls = [];
@@ -62859,14 +62859,16 @@ function getFloatInput(name, options) {
 exports.getFloatInput = getFloatInput;
 function getInputs() {
     return __awaiter(this, void 0, void 0, function* () {
+        core.debug('Getting the inputs.');
         const result = {};
         const serviceAccountJson = (0, core_1.getInput)(constants_1.Inputs.ServiceAccountJson, { required: true });
         if (serviceAccountJson) {
             if (/^([ \n\t]*){.+}([ \n\t]*)$/s.test(serviceAccountJson)) {
-                const serviceAccountFile = './.google-service-account.json';
+                const serviceAccountFile = './service-account-file.json';
                 (0, fs_1.writeFileSync)(serviceAccountFile, serviceAccountJson, {
                     encoding: 'utf8'
                 });
+                core.debug(`Created file "${serviceAccountFile}"`);
                 result.googleApplicationCredentials = serviceAccountFile;
                 result.createdGoogleCredentialsFile = true;
             }
@@ -62877,7 +62879,7 @@ function getInputs() {
         }
         else {
             console.log('No service account json key provided!');
-            throw new Error('You must provide one of \'serviceAccountJson\' or \'serviceAccountJsonPlainText\' to use this action');
+            throw new Error('You must provide one of \'serviceAccountJson\' to use this action');
         }
         result.packageName = (0, core_1.getInput)(constants_1.Inputs.PackageName, { required: true });
         const releaseFiles = (0, core_1.getInput)(constants_1.Inputs.ReleaseFile, { required: true })
@@ -63006,6 +63008,8 @@ const io_helper_1 = __nccwpck_require__(3262);
         let inputs;
         try {
             inputs = yield (0, io_helper_1.getInputs)();
+            core.exportVariable('GOOGLE_APPLICATION_CREDENTIALS', inputs.googleApplicationCredentials);
+            core.debug(`Using "${inputs.googleApplicationCredentials}" for GOOGLE_APPLICATION_CREDENTIALS`);
             const googleAuth = new androidpublisher_1.auth.GoogleAuth({
                 scopes: ['https://www.googleapis.com/auth/androidpublisher']
             });
@@ -63022,7 +63026,7 @@ const io_helper_1 = __nccwpck_require__(3262);
         finally {
             if (inputs === null || inputs === void 0 ? void 0 : inputs.createdGoogleCredentialsFile) {
                 core.debug('Cleaning up service account json file');
-                (0, fs_1.unlinkSync)('./.google-service-account.json');
+                (0, fs_1.unlinkSync)(inputs.googleApplicationCredentials);
             }
         }
     });
@@ -63219,7 +63223,7 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"publish-android","version":"1.0.1","description":"Github Action to upload a Android release (.apk or .aab) to the Google Play Store","scripts":{"build":"npm run clean && tsc --project tsconfig.json","release":"ncc build src/publish-android.ts -o action && git add -f action/","clean":"rimraf -- action","lint":"eslint **/*.ts"},"keywords":["actions","github","publish","android"],"author":{"name":"Giao Ho","email":"joutvhu@gmail.com","url":"https://github.com/joutvhu"},"license":"MIT","homepage":"https://github.com/joutvhu/publish-android#readme","repository":{"type":"git","url":"https://github.com/joutvhu/publish-android.git"},"bugs":{"url":"https://github.com/joutvhu/publish-android/issues"},"engines":{"node":">=16.0.0","npm":">=7.0.2"},"dependencies":{"@actions/core":"^1.9.0","@googleapis/androidpublisher":"^3.0.0","fast-glob":"^3.2.11","tslib":"^2.4.0"},"devDependencies":{"@tsconfig/recommended":"^1.0.1","@types/node":"^15.14.9","@typescript-eslint/eslint-plugin":"^5.30.6","@typescript-eslint/parser":"^5.30.6","@vercel/ncc":"^0.34.0","eslint":"^8.19.0","eslint-plugin-import":"^2.26.0","eslint-plugin-jest":"^26.6.0","eslint-plugin-node":"^11.1.0","eslint-plugin-prettier":"^4.2.1","eslint-plugin-promise":"^6.0.0","jest":"^28.1.3","prettier":"^2.7.1","rimraf":"^3.0.2","typescript":"^4.7.4"}}');
+module.exports = JSON.parse('{"name":"publish-android","version":"1.0.0","description":"Github Action to upload a Android release (.apk or .aab) to the Google Play Store","scripts":{"build":"npm run clean && tsc --project tsconfig.json","release":"ncc build src/publish-android.ts -o action && git add -f action/","clean":"rimraf -- action","lint":"eslint **/*.ts"},"keywords":["actions","github","publish","android"],"author":{"name":"Giao Ho","email":"joutvhu@gmail.com","url":"https://github.com/joutvhu"},"license":"MIT","homepage":"https://github.com/joutvhu/publish-android#readme","repository":{"type":"git","url":"https://github.com/joutvhu/publish-android.git"},"bugs":{"url":"https://github.com/joutvhu/publish-android/issues"},"engines":{"node":">=16.0.0","npm":">=7.0.2"},"dependencies":{"@actions/core":"^1.9.0","@googleapis/androidpublisher":"^3.0.0","fast-glob":"^3.2.11","tslib":"^2.4.0"},"devDependencies":{"@tsconfig/recommended":"^1.0.1","@types/node":"^15.14.9","@typescript-eslint/eslint-plugin":"^5.30.6","@typescript-eslint/parser":"^5.30.6","@vercel/ncc":"^0.34.0","eslint":"^8.19.0","eslint-plugin-import":"^2.26.0","eslint-plugin-jest":"^26.6.0","eslint-plugin-node":"^11.1.0","eslint-plugin-prettier":"^4.2.1","eslint-plugin-promise":"^6.0.0","jest":"^28.1.3","prettier":"^2.7.1","rimraf":"^3.0.2","typescript":"^4.7.4"}}');
 
 /***/ })
 

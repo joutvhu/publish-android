@@ -10,6 +10,9 @@ import {getInputs, PublishInputs, setOutputs} from './io-helper';
     try {
         inputs = await getInputs();
 
+        core.exportVariable('GOOGLE_APPLICATION_CREDENTIALS', inputs.googleApplicationCredentials);
+        core.debug(`Using "${inputs.googleApplicationCredentials}" for GOOGLE_APPLICATION_CREDENTIALS`);
+
         const googleAuth = new auth.GoogleAuth({
             scopes: ['https://www.googleapis.com/auth/androidpublisher']
         });
@@ -26,7 +29,7 @@ import {getInputs, PublishInputs, setOutputs} from './io-helper';
     } finally {
         if (inputs?.createdGoogleCredentialsFile) {
             core.debug('Cleaning up service account json file');
-            unlinkSync('./.google-service-account.json');
+            unlinkSync(inputs.googleApplicationCredentials);
         }
     }
 })();

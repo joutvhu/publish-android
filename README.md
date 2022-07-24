@@ -11,7 +11,7 @@ See [action.yml](action.yml)
 ```yaml
 uses: joutvhu/publish-android@v1
 with:
-  serviceAccountJson: ${{ SERVICE_ACCOUNT_JSON }}
+  serviceAccountJson: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
   packageName: com.example.MyApp
   releaseFile: |
     app/build/outputs/bundle/release/app-release-1.aab
