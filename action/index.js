@@ -62864,7 +62864,7 @@ function getInputs() {
         const serviceAccountJson = (0, core_1.getInput)(constants_1.Inputs.ServiceAccountJson, { required: true });
         if (serviceAccountJson) {
             if (/^([ \n\t]*){.+}([ \n\t]*)$/s.test(serviceAccountJson)) {
-                const serviceAccountFile = './service-account-file.json';
+                const serviceAccountFile = './.service-account.google.json';
                 (0, fs_1.writeFileSync)(serviceAccountFile, serviceAccountJson, {
                     encoding: 'utf8'
                 });

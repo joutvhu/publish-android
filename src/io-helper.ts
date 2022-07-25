@@ -57,7 +57,7 @@ export async function getInputs(): Promise<PublishInputs> {
     const serviceAccountJson = getInput(Inputs.ServiceAccountJson, {required: true});
     if (serviceAccountJson) {
         if (/^([ \n\t]*){.+}([ \n\t]*)$/s.test(serviceAccountJson)) {
-            const serviceAccountFile = './service-account-file.json';
+            const serviceAccountFile = './.service-account.google.json';
             writeFileSync(serviceAccountFile, serviceAccountJson, {
                 encoding: 'utf8'
             });
