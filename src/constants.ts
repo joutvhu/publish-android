@@ -10,7 +10,8 @@ export enum Inputs {
     WhatsNewDirectory = 'whatsNewDirectory',
     MappingFile = 'mappingFile',
     ChangesNotSentForReview = 'changesNotSentForReview',
-    ExistingEditId = 'existingEditId'
+    ExistingEditId = 'existingEditId',
+    DebugSymbols = 'debugSymbols'
 }
 
 export enum Outputs {
