@@ -57,7 +57,7 @@ outputs:
     # Environment Variable: INTERNAL_SHARING_DOWNLOAD_URLS
     description: A JSON list containing the download urls for every release file uploaded using the `internalsharing` track
 runs:
-  using: node20
+  using: node24
   main: action/index.js
 branding:
   icon: smartphone
