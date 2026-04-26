@@ -2,7 +2,6 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib",
     "strict": true,
@@ -12,11 +11,13 @@
     "removeComments": true,
     "esModuleInterop": true,
     "strictNullChecks": true,
-    "downlevelIteration": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
+    "ignoreDeprecations": "6.0",
     "moduleResolution": "node",
-    "target": "es2015",
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "target": "es2022",
     "module": "commonjs",
     "lib": [
       "es2016",

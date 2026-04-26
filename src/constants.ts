@@ -11,7 +11,8 @@ export enum Inputs {
     MappingFile = 'mappingFile',
     ChangesNotSentForReview = 'changesNotSentForReview',
     ExistingEditId = 'existingEditId',
-    DebugSymbols = 'debugSymbols'
+    DebugSymbols = 'debugSymbols',
+    DeviceTierConfigId = 'deviceTierConfigId'
 }
 
 export enum Outputs {
